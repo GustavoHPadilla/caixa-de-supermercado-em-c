@@ -1,0 +1,829 @@
+#include <iostream>
+#include <stdlib.h>
+#include <string>
+
+
+using namespace std;
+
+
+
+
+int main() {
+
+	
+	//entrada
+
+
+  string Cupom;
+  string NumeroCpf;
+
+
+
+  int cpf, cpfvali, confirmacaocpf, TentarNovamente;
+	int codigo, unidades, opcao, doacao;
+  int MetodoPagamento, troco, TrocoParaQuanto;
+	int unidadesBS=0, unidadesBCO=0, unidadesCQ=0, unidadesH=0, unidadesC=0, unidadesR=0, unidadesM=0, unidadesCC=0, unidadesXB=0, unidadesB=0, codigosFalhas=0;
+  int VaiParcelar, QuantasVezes, confirmar;
+  int CupomDesconto;
+
+
+
+  double NumeroDeParcelas=0;
+  double JurosPorParcela = 1.76, juros, parcela, ValorDoacao;
+  double sim, nao;
+	double totalPagar=0;
+	double totalBS=0, totalBCO=0, totalCQ=0, totalH=0, totalC=0, totalR=0, totalM=0, totalCC=0, totalB=0, totalXB=0;
+  double metodo1=0, metodo2=0, metodo3=0, metodo4=0, metodo5=0, metodo6=0;
+
+
+
+
+
+
+do{
+cout << "+-----------------------------------------+ \n";
+cout << "|          (1) Sim  -  Não (2)            | \n";
+cout << "+-----------------------------------------+ \n";
+cout << "|      Deseja adicionar CPF na nota?      | \n";
+cout << "+-----------------------------------------+ \n";
+cout << "OPÇÃO: ";
+cin >> cpf;
+
+
+if (cpf==1){
+    cout << "\n\n";
+    cout << "Digite o número do CPF (Com o formato: XXX.XXX.XXX-XX): ";
+    while(getline(cin, NumeroCpf))
+        if(NumeroCpf != "")
+          break;
+    cout << "\n\n\n";
+
+
+    cout << "     (1) Sim  -  Não (2)                   \n";
+    cout << "O seu CPF é: " << NumeroCpf << " ?          \n";
+    cout << "OPÇÃO: ";
+    cin >> confirmacaocpf;
+
+
+    if (confirmacaocpf==1) {
+          cout << "\n\n";
+          cout << "Certo!";
+          cout << "\n\n";
+    }
+
+    else if(confirmacaocpf==2) {
+        cout << "|   (1) Sim  -  Não (0)     | \n";
+        cout << "Gostaria de tentar novamente? \n";
+    }
+
+    else {
+      cout << "\n\n";
+      cout << "Código inexistente!";
+      cout << "\n\n";
+    }
+  
+}
+
+else if (cpf==2) {
+  cout << "\n\n";
+  cout << "Prossiga para o pedido. ";
+  cout << "\n\n";
+
+}
+
+else {
+  cout << "\n\n";
+  cout << "Código inexistente!";
+  cout << "\n\n";
+}
+
+
+cout << "\n";
+cout << "TENTAR NOVAMENTE (1)  CONTINUAR(0) \n";
+cout << "OPÇÃO: ";
+cin >> cpf;
+cout << "\n\n    ";
+
+
+while((cpf != 0) && (cpf !=1)){
+	cout << "ERRO, SELECIONE:  TENTAR NOVAMENTE(1)  CONTINUAR(0) \n";
+	cout << "OPÇÃO: ";
+	cin >> cpf;
+  cout << "\n"; }
+
+
+}while(cpf != 0);
+
+
+ //Começo
+
+	do{
+    cout <<"\n\n";
+    cout << " | =----------------+---------+----------= | \n";
+		cout << " |      PRODUTOS    | CÓDIGOS |  PREÇOS    | \n";
+		cout << " | =----------------+---------+----------= | \n";
+		cout << " | CACHORRO QUENTE  |    1    | R$ 10,00   | \n";
+		cout << " | X-BURGUER        |    2    | R$ 13,50   | \n";
+		cout << " | X-TUDO           |    3    | R$ 22,00   | \n";
+    cout << " | X-BACON          |    4    | R$ 17,00   | \n";
+		cout << " | COCA-COLA        |    5    | R$ 5,50    | \n"; 
+    cout << " | COCA-COLA 2L     |    6    | R$ 11,00   | \n";
+    cout << " | MAIONESE CASEIRA |    7    | R$ 4,00    | \n"; 
+    cout << " | BRIGADEIRO       |    8    | R$ 3,00    | \n";
+		cout << " | =----------------+---------+----------= | \n";
+		
+		//coleta
+    cout << "\n";
+		cout << "CÓDIGO DO PRODUTO: ";
+		cin >> codigo;
+		cout << "UNIDADES: ";
+		cin >> unidades;
+		cout << "\n";
+		
+		while(unidades <= 0){
+			cout << "UNIDADE NÃO PODE SER 0 \n";
+			cout << "UNIDADES: ";
+			cin >> unidades;
+			cout << "\n";
+		}	
+		
+		//processamento
+		switch(codigo){
+				case 1:
+        cout << "\n";
+						cout << "***************************************** \n";
+						cout << " COMPRANDO "<< unidades <<" UNIDADES DE CACHORRO-QUENTE \n";
+						cout << "***************************************** \n";
+						cout << "\n";
+						unidadesCQ = unidadesCQ + unidades;
+						totalPagar = totalPagar + ( unidades * 10.50);
+						totalCQ = totalCQ + (unidades * 10.50);
+						break;
+						
+				case 2:
+        cout << "\n";
+						cout << "*********************************** \n";
+						cout << " COMPRANDO "<< unidades <<" UNIDADES DE X-BURGUER  \n";
+						cout << "*********************************** \n";
+						cout << "\n";
+						unidadesH = unidadesH + unidades;
+						totalPagar = totalPagar + (unidades * 13.50);
+						totalH = totalH + (unidades * 13.50);
+						break;
+						
+				case 3:
+        cout << "\n";
+						cout << "******************************** \n";
+						cout << " COMPRANDO "<< unidades <<" UNIDADES DE X-TUDO  \n";
+						cout << "******************************** \n";
+						cout << "\n";
+						unidadesC = unidadesC + unidades;
+						totalPagar = totalPagar + (unidades * 22.0);
+						totalC = totalC + (unidades * 22.0);
+						break;
+        
+        case 4:
+        cout << "\n";
+						cout << "********************************* \n";
+						cout << " COMPRANDO "<< unidades <<" UNIDADES DE X-BACON  \n";
+						cout << "********************************* \n";
+						cout << "\n";
+						unidadesXB = unidadesXB + unidades;
+						totalPagar = totalPagar + (unidades * 17.00);
+						totalXB = totalXB + (unidades * 17.00);
+						break;
+						
+				case 5:
+        cout << "\n";
+						cout << "************************************** \n";
+						cout << " COMPRANDO "<< unidades <<" UNIDADES DE COCA-COLA  \n";
+						cout << "************************************** \n";
+						cout << "\n";
+						unidadesR = unidadesR + unidades;
+						totalPagar = totalPagar + (unidades * 5.50);
+						totalR = totalR + (unidades * 5.50);
+						break;
+
+        case 6:
+        cout << "\n";
+						cout << "************************************** \n";
+						cout << " COMPRANDO "<< unidades <<" UNIDADES DE COCA-COLA 2L  \n";
+						cout << "************************************** \n";
+						cout << "\n";
+						unidadesCC = unidadesCC + unidades;
+						totalPagar = totalPagar + (unidades * 11.00);
+						totalCC = totalCC + (unidades * 11.00);
+						break;
+        
+        case 7:
+        cout << "\n";
+						cout << "****************************************** \n";
+						cout << " COMPRANDO "<< unidades <<" UNIDADES DE MAIONESE CASEIRA  \n";
+						cout << "****************************************** \n";
+						cout << "\n";
+						unidadesM = unidadesM + unidades;
+						totalPagar = totalPagar + (unidades * 4.00);
+						totalM = totalM + (unidades * 4.00);
+						break;
+
+         
+        case 8:
+        cout << "\n";
+						cout << "************************************ \n";
+						cout << " COMPRANDO "<< unidades <<" UNIDADES DE BRIGADEIRO  \n";
+						cout << "************************************ \n";
+						cout << "\n";
+						unidadesB = unidadesB + unidades;
+						totalPagar = totalPagar + (unidades * 3.00);
+						totalB = totalB + (unidades * 3.00);
+						break;            
+						
+				default:
+        cout << "\n";
+						cout << "ERRO ~~ CODIGO DE PRODUTO ERRADO \n";
+						cout << "\n";
+						codigosFalhas = codigosFalhas + 1;
+						break;
+		}
+		
+
+
+		//coleta
+		cout << "        \n";
+		cout << "ADD + PRODUTO (1)  CONTINUAR(0) \n";
+		cout << "OPCAO: ";
+		cin >> opcao;
+		cout << "     \n";
+  
+
+		while((opcao != 0) && (opcao !=1)){
+			cout << "ERRO SELECIONE ADD+PRODUTO(1) OU CONTINUAR(0) \n";
+			cout << "OPCAO: ";
+			cin >> opcao;
+      break;
+		}
+
+
+
+		cout <<"\n\n\n\n";
+
+
+
+	}while(opcao != 0); 
+	
+  //saída
+  
+ 
+	cout <<"\n\n\n\n\n";
+  cout << "    COMPROVANTE DA COMPRA - PAGAMENTO            \n";
+  cout << "                                                 \n";
+  cout << "|=-----------------+----------+----------=       \n";
+	cout << "|  ESPECIFICAÇÃO   | UNIDADES |   TOTAL          \n";
+	cout << "|=-----------------+----------+----------=       \n";
+	cout << "| CACHORRO QUENTE  |   ["<< unidadesCQ <<"]    | R$ "<< totalCQ << endl;
+  cout << "| X-TUDO           |   ["<< unidadesC <<"]    | R$ "<< totalC << endl;
+	cout << "| X-BURGUER        |   ["<< unidadesH <<"]	  | R$ "<< totalH << endl;
+  cout << "| X-BACON          |   ["<< unidadesXB <<"]	  | R$ "<< totalXB << endl;
+	cout << "| MAIONESE CASEIRA |   ["<< unidadesM <<"]    | R$ "<< totalM << endl;
+	cout << "| COCA-COLA        |   ["<< unidadesR <<"]	  | R$ "<< totalR << endl;
+  cout << "| COCA-COLA 2L     |   ["<< unidadesCC <<"]	  | R$ "<< totalCC << endl;
+  cout << "| BRIGADEIRO       |   ["<< unidadesB <<"]	  | R$ "<< totalB << endl;
+	cout << "|=-----------------+----------+----------=       \n";
+	cout << "                                R$"<< totalPagar << endl;
+	cout << "                                                  \n";
+   
+do{
+
+
+cout << "\n";
+cout << "Você pode usar o(s) seguinte(s) cupom(s): \n\n";
+
+
+  if(totalPagar < 20){
+    cout << "- GANHE12 - \n";
+  }
+
+
+  else if(totalPagar < 50){
+    cout << "- GANHE12 - MENOS20 - \n";
+  }
+
+
+  else if(totalPagar < 100){
+    cout << "- GANHE12 - MENOS20 - GANHEI15 - \n";
+  }
+
+  else {
+    cout << "- GANHE12 - MENOS20 - GANHEI15 - \n";
+  }
+
+
+
+  cout << "                                             \n\n";
+  cout << "+-----------------------------------------+    \n";
+  cout << "|            (1) Sim - Não (2)            |    \n";
+  cout << "+-----------------------------------------+    \n";
+  cout << "|    Deseja usar um cupom de desconto?    |    \n";
+  cout << "+-----------------------------------------+    \n";
+  cout << "OPÇÃO: ";
+  cin >> CupomDesconto;
+
+
+
+if (CupomDesconto==1) {
+      cout << "\n\n\n";
+      cout << "(APENAS LETRAS MAÍUSCULAS, SEM PONTO E SEM VÍRGULA). Digite o cupom : ";
+      while(getline(cin, Cupom))
+        if(Cupom != "")
+          break;
+
+  if(Cupom == "MENOS20" ) {
+
+      if(totalPagar <= 50){
+        cout << "\n\n";
+        cout << "Adicione mais produtos para usar o cupom de desconto. (Valor da compra menor que R$50,00.)  -  Valor da compra: R$" << totalPagar << endl;
+        cout << "\n\n";
+      }
+
+      else if(totalPagar >= 50) {
+        cout << "\n\n";
+        cout << "Cupom aplicado! Você ganhou R$20,00 de desconto! \n";
+        totalPagar = totalPagar - 20;
+        cout << "Total a pagar é de: R$" << totalPagar << endl;
+        cout << "\n\n";
+      }
+
+    else {
+      cout << "\n";
+    }
+}
+      
+      else if(Cupom == "GANHE12" ) {
+
+            if(totalPagar <= 20){
+              cout << "\n\n";
+              cout << "Adicione mais produtos para usar o cupom de desconto. (Valor da compra menor que R$20,00.)  -  Valor da compra: R$" << totalPagar << endl;
+              cout << "\n\n";
+            }
+
+            else if(totalPagar >= 20) {
+              cout << "\n\n";
+              cout << "Cupom aplicado! Você ganhou R$12,00 de desconto! \n";
+              totalPagar = totalPagar - 12;
+              cout << "Total a pagar é de: R$" << totalPagar << endl;
+              cout << "\n\n";
+            }
+            
+          else {
+            cout << "\n";
+          }
+      }      
+
+      else if(Cupom == "GANHEI15" ) {
+
+                  if(totalPagar <= 100){
+                    cout << "\n\n";
+                    cout << "Adicione mais produtos para usar o cupom de desconto. (Valor da compra menor que R$100,00.)  -  Valor da compra: R$" << totalPagar << endl;
+                    cout << "\n\n";
+                  }
+
+                  else if(totalPagar >= 100) {
+                    cout << "\n\n";
+                    cout << "Cupom aplicado! Você ganhou 15% de desconto! \n";
+                    totalPagar = totalPagar - (totalPagar * 15/100);
+                    cout << "Total a pagar é de: R$" << totalPagar << endl;
+                    cout << "\n\n";
+                  }
+                else {
+                  cout << "\n";
+                }
+  }
+
+}
+
+
+else if (CupomDesconto==2){
+  cout << "\n\n Continue para o pagamento \n\n";
+}
+
+else {
+  cout << "\n\n";
+  cout << "Cupom inválido, tente novamente! ";
+  cout << "\n\n";
+}
+
+cout << "\n";
+cout << "TENTAR NOVAMENTE (1)  CONTINUAR(0) \n";
+cout << "OPÇÃO: ";
+cin >> CupomDesconto;
+cout << "\n\n    ";
+
+
+while((CupomDesconto != 0) && (CupomDesconto !=1)){
+	cout << "ERRO, SELECIONE:  TENTAR NOVAMENTE(1)  CONTINUAR(0) \n";
+	cout << "OPÇÃO: ";
+	cin >> CupomDesconto;
+  cout << "\n"; }
+
+}while(CupomDesconto != 0);
+
+
+
+
+//pagamento
+
+do{
+cout << "\n\n\n\n\n\n";
+cout << "Qual o método de pagamento você vai utilizar?    \n";
+cout << "|=--------------------------+--------------------=|   \n";
+cout << "| CARTÃO DE CRÉDITO         |         [ OPÇÃO 1 ] |   \n";
+cout << "| CARTÃO DE DÉBITO          |         [ OPÇÃO 2 ] |   \n";
+cout << "| DINHEIRO                  |         [ OPÇÃO 3 ] |   \n";
+cout << "| MERCADO PAGO              |         [ OPÇÃO 4 ] |   \n";
+cout << "| PAYPAL                    |         [ OPÇÃO 5 ] |   \n";
+cout << "| PICPAY                    |         [ OPÇÃO 6 ] |   \n";
+cout << "|=--------------------------+--------------------=|   \n";
+
+		//coleta
+    cout << "\n";
+		cout << "MÉTODO DE PAGAMENTO: ";
+		cin >> MetodoPagamento;
+		cout << "\n\n\n";
+
+    while(MetodoPagamento <= 0){
+			cout << "NÃO PODE SER 0 \n";
+			cout << "Método: ";
+			cin >> MetodoPagamento;
+			cout << "\n"; }
+
+
+
+switch(MetodoPagamento){
+
+      case 1:
+        cout << "************************************************** \n";
+        cout << "\n";
+        cout << "Método escolhido foi: Cartão de crédito.           \n";
+        cout << "\n";
+
+//juros 
+
+  juros = JurosPorParcela * (totalPagar/100);
+  
+  juros = JurosPorParcela * QuantasVezes;
+
+
+
+  if(totalPagar<=70) {
+    cout << "Você pode parcelar em até 2x \n";
+    parcela = 2;
+    cout << "\n";
+}
+
+else if (totalPagar<=120){
+    cout << "Você pode parcelar em até 4x \n";
+    parcela = 4;
+    cout << "\n";
+}
+
+else if (totalPagar<=180) {
+    cout << "Você pode parcelar em até 6x \n";
+    parcela = 6;
+    cout << "\n";
+}
+
+else if (totalPagar<=240) {
+    cout << "Você pode parcelar em até 8x \n";
+    parcela = 8;
+    cout << "\n";
+}
+
+else if (totalPagar<=300) {
+    cout << "Você pode parcelar em até 10x \n";
+    parcela = 10;
+    cout << "\n";
+}
+
+else {
+    cout << "Você pode parcelar em até 12x \n";
+    parcela = 12;
+    cout << "\n";
+}
+
+cout << "************************************************** \n";
+
+        cout << "\n\n\n\n";
+        cout << "+-----------------------------------------+ \n";
+        cout << "|            (1) Sim - Não (2)            | \n";
+        cout << "+-----------------------------------------+ \n";
+        cout << "| Você gostaria de parcelar a sua compra? | \n";
+        cout << "+-----------------------------------------+ \n";
+        cout << " Opção: ";
+        cin >> VaiParcelar;
+
+if (VaiParcelar==1){
+
+        if(totalPagar<=70) {
+          cout << "\n\n";
+    cout << "Parcelas disponiveis: (2) \n";
+    parcela = 2;
+    cout << "Opção: ";
+        cin >> NumeroDeParcelas;
+        cout << "\n\n";
+    cout << "\n";
+}
+
+else if (totalPagar<=120){
+  cout << "\n\n";
+    cout << "Parcelas disponiveis: (2) (4) \n";
+    parcela = 4;
+    cout << "Opção: ";
+        cin >> NumeroDeParcelas;
+        cout << "\n\n";
+    cout << "\n";
+}
+
+else if (totalPagar<=180) {
+  cout << "\n\n";
+    cout << "Parcelas disponiveis: (2) (4) (6) \n";
+    parcela = 6;
+    cout << "Opção: ";
+        cin >> NumeroDeParcelas;
+        cout << "\n\n";
+    cout << "\n";
+}
+
+else if (totalPagar<=240) {
+  cout << "\n\n";
+    cout << "Parcelas disponiveis: (2) (4) (6) (8) \n";
+    parcela = 8;
+    cout << "Opção: ";
+        cin >> NumeroDeParcelas;
+        cout << "\n\n";
+    cout << "\n";
+}
+
+else if (totalPagar<=300) {
+  cout << "\n\n";
+    cout << "Parcelas disponiveis: (2) (4) (6) (8) (10) \n";
+    parcela = 10;
+    cout << "Opção: ";
+        cin >> NumeroDeParcelas;
+        cout << "\n\n";
+    cout << "\n";
+}
+
+else {
+  cout << "\n\n";
+    cout << "Parcelas disponiveis: (2) (4) (6) (8) (10) (12) \n";
+    parcela = 12;
+    cout << "Opção: ";
+        cin >> NumeroDeParcelas;
+        cout << "\n\n";
+    cout << "\n";
+}   
+
+}
+
+else  {
+  cout << "\n\n\n";
+}
+
+
+  if (NumeroDeParcelas){
+    cout << "\n\n\n";
+    cout << "Ok, sua parcela será calculada \n";
+    
+
+        if(NumeroDeParcelas==2){
+          cout << "\n";
+            //  totalPagar = totalPagar / parcela + (4.76/100);
+         parcela = totalPagar / NumeroDeParcelas;
+          cout << "O total de cada parcela ficará de: R$" << parcela << " Sem juros. \n";
+          cout << "\n\n\n";
+      }
+
+        else if (NumeroDeParcelas==4){
+          cout << "\n";
+            // totalPagar = totalPagar / parcela + (4.76/100);
+         parcela = totalPagar / NumeroDeParcelas;
+          cout << "O total de cada parcela ficará de: R$" << parcela << " Sem juros. \n";
+          cout << "\n\n\n";
+      }
+
+        else if (NumeroDeParcelas==6){
+          cout << "\n";
+            // totalPagar = totalPagar / parcela + (4.76/100);
+          parcela = totalPagar / NumeroDeParcelas;
+          cout << "O total de cada parcela ficará de: R$" << parcela << " Sem juros. \n";
+          cout << "\n\n\n";
+      }
+
+        else if (NumeroDeParcelas==8){
+          cout << "\n";
+            // totalPagar = totalPagar / parcela + (4.76/100);
+          parcela = totalPagar / NumeroDeParcelas;
+          cout << "O total de cada parcela ficará de: R$" << parcela << " Sem juros. \n";
+          cout << "\n\n\n";
+      }
+
+        else if (NumeroDeParcelas==10){
+          cout << "\n";
+            //  totalPagar = totalPagar / parcela + (4.76/100);
+         parcela = totalPagar / NumeroDeParcelas;
+          cout << "O total de cada parcela ficará de: R$" << parcela << " Sem juros. \n";
+          cout << "\n\n\n";
+      }
+
+        else {
+          cout << "\n";
+            // totalPagar = totalPagar / parcela + (4.76/100);
+         parcela = totalPagar / NumeroDeParcelas;
+          cout << "O total de cada parcela ficará de: R$" << parcela << " Sem juros. \n";
+          cout << "\n\n\n";
+      }
+
+  }
+
+else {
+    cout << "\n\n\n";
+}
+        
+        break;
+
+
+
+      case 2:
+        cout << "************************************************** \n";
+        cout << "\n";
+        cout << "      Método escolhido foi: Cartão de débito.      \n";
+        cout << "\n";
+        cout << "************************************************** \n";        
+        break;
+
+      case 3:
+        cout << "************************************************** \n";
+        cout << "\n";
+        cout << "         Método escolhido foi: Dinheiro.           \n";
+        cout << "\n";    
+        cout << "************************************************** \n";
+        cout << "\n\n\n\n\n";
+        cout << "+-----------------------------------------+ \n";
+        cout << "|          (1) Sim  -  Não (2)            | \n";
+        cout << "+-----------------------------------------+ \n";
+        cout << "|       Você irá precisar de troco?       | \n";
+        cout << "+-----------------------------------------+ \n";
+        cout << " Opção: ";
+        cin >> troco;
+      
+if (troco==1){
+  cout << " Troco para quanto? ";
+  cin >> TrocoParaQuanto;
+  cout << " Troco para:     R$ " << TrocoParaQuanto << " \n";
+  cout << "\n";
+
+  
+  if (totalPagar <= TrocoParaQuanto) {
+    TrocoParaQuanto = TrocoParaQuanto - totalPagar;
+    cout << "A sua volta é de: " << TrocoParaQuanto << " R$ \n";
+        
+        cout << "\n\n\n";
+        cout << "Certo! passe ao caixa e entregue a sua comanda.";
+        cout << "\n\n";
+}
+
+else {
+    cout << "\n";
+}
+
+}
+
+else {    
+cout << "\n\n";
+
+}
+
+cout << "\n";
+
+
+
+        cout << "\n";
+        
+        break;  
+
+      case 4:  
+        cout << "************************************************** \n";
+        cout << "\n";
+        cout << "        Método escolhido foi: Mercado Pago.        \n";
+        cout << "\n";
+        cout << "************************************************** \n";
+        break;
+
+      case 5:
+        cout << "************************************************** \n";
+        cout << "\n";
+        cout << "           Método escolhido foi: PayPal.           \n";
+        cout << "\n";  
+        cout << "************************************************** \n";
+        break;
+
+      case 6:
+        cout << "************************************************** \n";
+        cout << "\n";
+        cout << "           Método escolhido foi: PicPay.           \n";
+        cout << "\n";  
+        cout << "************************************************** \n";
+        break;  
+
+      default:
+        cout << "************************************************** \n";
+        cout << "\n";
+        cout << "     Nenhum método escolhido, tente novamente.     \n";
+        cout << "\n";
+        cout << "************************************************** \n";
+        break;  
+
+      }
+
+
+
+cout << "\n";
+cout << "TENTAR OUTRO MÉTODO (1)  CONTINUAR(0) \n";
+cout << "OPÇÃO: ";
+cin >> MetodoPagamento;
+cout << "\n\n    ";
+
+
+
+while((MetodoPagamento != 0) && (MetodoPagamento !=1)){
+	cout << "ERRO, SELECIONE: TENTAR OUTRO MÉTODO(1)  CONTINUAR(0) \n";
+	cout << "OPÇÃO: ";
+	cin >> MetodoPagamento;
+  cout << "\n"; }
+
+
+}while(MetodoPagamento !=0);
+
+
+
+cout << "\n\n";
+cout << "Sim (1)   OU    Não (2)                                                         \n\n";
+cout << "Você gostaria de contribuir para a construção da torre de ajuda da OMS? (exemplo) \n";
+cout << "OPÇÃO: ";
+cin >> doacao; 
+cout << "\n\n";
+
+if(doacao==1){
+    cout << "Ok, Insira o valor da doação: ";
+    cin >> ValorDoacao;
+    cout << "\n";
+    cout << "Você, está prestes a doar: R$" << ValorDoacao << "\n";
+    
+    cout << " (1) Sim       Não (2)   \n"; 
+    cout << "  Confirme a sua ação   \n";
+    cout << "OPÇÃO: ";
+    cin >> confirmar;
+
+      if(1){
+        cout << "\n";
+          cout << "Ok, agradeçemos imensamente a sua doação! \n";
+      } 
+    
+        else {
+          cout << "\n";
+            cout << "Sem problemas, nós te entendemos! \n";
+        }
+    
+}
+
+else {
+  cout << "\n\n";
+ cout << "Ok, respeitamos a sua preferência! \n";
+}
+
+
+
+
+cout << "\n\n\n";
+
+
+
+
+
+cout << " +--------------------------------------------------------------------+    \n";
+cout << "                                                                          \n"; 
+cout << "   Obrigado por comprar com a gente! sua nota fiscal será impressa!       \n";
+cout << "                                                                          \n";          
+cout << "   CNPJ: XX. XXX. XXX/0001-XX        Lanchonete XXXXXXXX XX XXXXXXX       \n";
+cout << "   Av. Eucrides Major Pereira Gonçalves    Nº 890    Residencial XV       \n";
+cout << "                                                                          \n";
+cout << "   CPF DO CLIENTE: " << NumeroCpf << "                                      ";
+
+
+
+
+
+
+return 0;
+
+}
